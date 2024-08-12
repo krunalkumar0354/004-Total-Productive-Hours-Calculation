@@ -3,7 +3,8 @@ from datetime import datetime as dt
 def main(event):
   # Use inputs to get data from any action in your workflow and use it in your code instead of having to use the HubSpot API.
   doj = event.get('inputFields').get('doj')
-  if doj == None:
+  designation = event.get('inputFields').get('designation')
+  if doj == None or designation == None:
     return {
     "outputFields": {
       "total_productive_hours": 0
@@ -24,7 +25,19 @@ def main(event):
     day_today = today.day
     month_today = today.month
     year_today = today.year
-    max_hours = 140
+    max_hours = 0
+    if designation == None:
+      max_hours = 0
+    if designation == 'finance_lead':
+      max_hours = 120
+    if designation == 'assistant_team_lead':
+      max_hours = 130
+    if designation == 'senior_finance_associate':
+      max_hours = 140
+    if designation == 'finance_associate':
+      max_hours = 140
+    if designation == 'indian_controller':
+      max_hours = 120
     #calculating month difference considering the change in year
     months_difference = (year_today - year_doj) * 12 + (month_today - month_doj)
     #determining the multiplier
