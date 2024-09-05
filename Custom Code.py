@@ -19,6 +19,7 @@ def main(event):
     if isinstance(doj, str):
         doj = dt.strptime(doj, '%Y-%m-%d') #Convert the string date into datetime object
     #following lines will extract day, month and year
+    print(doj)
     day_doj = doj.day
     month_doj = doj.month
     year_doj = doj.year
@@ -49,11 +50,11 @@ def main(event):
         else:
         	multiplier = 1
     else:
-        if month_today == month_doj:
+        if month_today == month_doj and year_today == year_doj:
         	multiplier = 0.5
-        elif abs(months_difference) == 1:
+        elif abs(months_difference) == 1 and year_today == year_doj:
         	multiplier = 0.5
-        elif abs(months_difference) == 2:
+        elif abs(months_difference) == 2 and year_today == year_doj:
         	multiplier = 0.75
         else:
         	multiplier = 1
@@ -61,6 +62,6 @@ def main(event):
     hours = int(hours)
     return {
         "outputFields": {
-        "total_productive_hours": hours
+          "total_productive_hours": hours
         }
   }
